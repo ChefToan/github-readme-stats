@@ -44,19 +44,19 @@ function calculateRank({
   followers,
 }) {
   const COMMITS_MEDIAN = all_commits ? 1000 : 100, // lower median for more impact
-    COMMITS_WEIGHT = 8; // highest weight
-  const REPOS_MEDIAN = 1, // since you have 1 repo contributed
-    REPOS_WEIGHT = 4; // second highest
+    COMMITS_WEIGHT = 10; // even higher weight for commits
+  const REPOS_MEDIAN = 1, // since you have 2 repos contributed
+    REPOS_WEIGHT = 6; // higher weight for repos
   const PRS_MEDIAN = 10,
-    PRS_WEIGHT = 2; // moderate weight
+    PRS_WEIGHT = 1.5; // lower weight for PRs
   const ISSUES_MEDIAN = 10,
     ISSUES_WEIGHT = 1;
   const REVIEWS_MEDIAN = 2,
     REVIEWS_WEIGHT = 0.5;
   const STARS_MEDIAN = 10,
-    STARS_WEIGHT = 0.5; // lowest weight
+    STARS_WEIGHT = 0.2; // lowest weight
   const FOLLOWERS_MEDIAN = 10,
-    FOLLOWERS_WEIGHT = 0.5;
+    FOLLOWERS_WEIGHT = 0.3;
 
   const TOTAL_WEIGHT =
     COMMITS_WEIGHT +
@@ -67,7 +67,7 @@ function calculateRank({
     STARS_WEIGHT +
     FOLLOWERS_WEIGHT;
 
-  const THRESHOLDS = [1, 20, 35, 50, 65, 80, 90, 95, 100]; // easier to get A+
+  const THRESHOLDS = [1, 30, 45, 60, 70, 80, 90, 95, 100]; // easier to get A+
   const LEVELS = ["S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"];
 
   const rank =

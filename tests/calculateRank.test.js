@@ -18,7 +18,7 @@ describe("Test calculateRank", () => {
     ).toStrictEqual({ level: "C", percentile: 100 });
   });
 
-  it("beginner user gets B+ rank", () => {
+  it("beginner user gets A- rank", () => {
     expect(
       calculateRank({
         all_commits: false,
@@ -30,10 +30,10 @@ describe("Test calculateRank", () => {
         stars: 25,
         followers: 5,
       }),
-    ).toStrictEqual({ level: "B+", percentile: 53.22253257846622 });
+    ).toStrictEqual({ level: "A-", percentile: 58.026555507716424 });
   });
 
-  it("median user gets A- rank", () => {
+  it("median user gets A rank", () => {
     expect(
       calculateRank({
         all_commits: false,
@@ -45,10 +45,10 @@ describe("Test calculateRank", () => {
         stars: 50,
         followers: 10,
       }),
-    ).toStrictEqual({ level: "A-", percentile: 36.378476309109494 });
+    ).toStrictEqual({ level: "A", percentile: 42.00193323895558 });
   });
 
-  it("average user gets B+ rank (include_all_commits)", () => {
+  it("average user gets A- rank (include_all_commits)", () => {
     expect(
       calculateRank({
         all_commits: true,
@@ -60,7 +60,7 @@ describe("Test calculateRank", () => {
         stars: 50,
         followers: 10,
       }),
-    ).toStrictEqual({ level: "B+", percentile: 52.04990926442405 });
+    ).toStrictEqual({ level: "A-", percentile: 58.57748732630754 });
   });
 
   it("advanced user gets A rank", () => {
@@ -75,7 +75,7 @@ describe("Test calculateRank", () => {
         stars: 200,
         followers: 40,
       }),
-    ).toStrictEqual({ level: "A", percentile: 26.712126848845596 });
+    ).toStrictEqual({ level: "A", percentile: 32.89859966422467 });
   });
 
   it("expert user gets A rank", () => {
@@ -90,7 +90,7 @@ describe("Test calculateRank", () => {
         stars: 800,
         followers: 160,
       }),
-    ).toStrictEqual({ level: "A", percentile: 24.511370005441492 });
+    ).toStrictEqual({ level: "A", percentile: 30.927488663972458 });
   });
 
   it("sindresorhus gets A rank", () => {
@@ -105,6 +105,6 @@ describe("Test calculateRank", () => {
         stars: 600000,
         followers: 50000,
       }),
-    ).toStrictEqual({ level: "A", percentile: 24.24899924665724 });
+    ).toStrictEqual({ level: "A", percentile: 30.775815509770144 });
   });
 });
