@@ -39,38 +39,41 @@ function calculateRank({
   prs,
   issues,
   reviews,
-  // eslint-disable-next-line no-unused-vars
-  repos, // unused
+  repos,
   stars,
   followers,
 }) {
-  const COMMITS_MEDIAN = all_commits ? 1000 : 250,
-    COMMITS_WEIGHT = 2;
-  const PRS_MEDIAN = 50,
-    PRS_WEIGHT = 3;
-  const ISSUES_MEDIAN = 25,
+  const COMMITS_MEDIAN = all_commits ? 1000 : 100, // lower median for more impact
+    COMMITS_WEIGHT = 8; // highest weight
+  const REPOS_MEDIAN = 1, // since you have 1 repo contributed
+    REPOS_WEIGHT = 4; // second highest
+  const PRS_MEDIAN = 10,
+    PRS_WEIGHT = 2; // moderate weight
+  const ISSUES_MEDIAN = 10,
     ISSUES_WEIGHT = 1;
   const REVIEWS_MEDIAN = 2,
-    REVIEWS_WEIGHT = 1;
-  const STARS_MEDIAN = 50,
-    STARS_WEIGHT = 4;
+    REVIEWS_WEIGHT = 0.5;
+  const STARS_MEDIAN = 10,
+    STARS_WEIGHT = 0.5; // lowest weight
   const FOLLOWERS_MEDIAN = 10,
-    FOLLOWERS_WEIGHT = 1;
+    FOLLOWERS_WEIGHT = 0.5;
 
   const TOTAL_WEIGHT =
     COMMITS_WEIGHT +
+    REPOS_WEIGHT +
     PRS_WEIGHT +
     ISSUES_WEIGHT +
     REVIEWS_WEIGHT +
     STARS_WEIGHT +
     FOLLOWERS_WEIGHT;
 
-  const THRESHOLDS = [1, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, 100];
+  const THRESHOLDS = [1, 20, 35, 50, 65, 80, 90, 95, 100]; // easier to get A+
   const LEVELS = ["S", "A+", "A", "A-", "B+", "B", "B-", "C+", "C"];
 
   const rank =
     1 -
     (COMMITS_WEIGHT * exponential_cdf(commits / COMMITS_MEDIAN) +
+      REPOS_WEIGHT * exponential_cdf(repos / REPOS_MEDIAN) +
       PRS_WEIGHT * exponential_cdf(prs / PRS_MEDIAN) +
       ISSUES_WEIGHT * exponential_cdf(issues / ISSUES_MEDIAN) +
       REVIEWS_WEIGHT * exponential_cdf(reviews / REVIEWS_MEDIAN) +
